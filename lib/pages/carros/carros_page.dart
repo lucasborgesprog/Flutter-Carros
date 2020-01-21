@@ -38,7 +38,7 @@ class _CarrosPageState extends State<CarrosPage>
         if (snapshot.hasError) {
           print(snapshot.error);
           return TextError(
-            msg: "Não foi possível buscar os carros",
+            msg: "Não foi possível buscar os carro",
           );
         }
 
