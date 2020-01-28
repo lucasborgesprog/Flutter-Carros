@@ -1,8 +1,10 @@
 import 'package:carros_custom/pages/carros/carro.dart';
 import 'package:carros_custom/pages/carros/carros_listView.dart';
 import 'package:carros_custom/pages/favoritos/favoritos_bloc.dart';
+import 'package:carros_custom/pages/favoritos/favoritos_model.dart';
 import 'package:carros_custom/widgets/text_error.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FavoritosPage extends StatefulWidget {
   @override
@@ -13,53 +15,68 @@ class _FavoritosPageState extends State<FavoritosPage>
     with AutomaticKeepAliveClientMixin<FavoritosPage> {
   @override
   bool get wantKeepAlive => true;
-  final _bloc = FavoritosBloc();
 
   @override
   void initState() {
     super.initState();
 
-    _bloc.fetch();
+    FavoritosModel model = Provider.of<FavoritosModel>(context, listen: false);
+    model.getCarros();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return StreamBuilder(
-      stream: _bloc.stream,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasError) {
-          print(snapshot.error);
-          return TextError(
-            msg: "Não foi possível buscar os Favoritos",
-          );
-        }
+    FavoritosModel model = Provider.of<FavoritosModel>(context);
 
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    List<Carro> carros = model.carros;
 
-        List<Carro> carros = snapshot.data;
+    if (carros.isEmpty) {
+      return Center(
+        child: Text(
+          "Nenhum carro nos favoritos",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+    }
 
-        return RefreshIndicator(
-          child: CarrosListView(carros),
-          onRefresh: _onRefresh,
-        );
-      },
+    return RefreshIndicator(
+      child: CarrosListView(carros),
+      onRefresh: _onRefresh,
     );
+
+    // return StreamBuilder(
+    //   stream: favoritosBloc.stream,
+    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+    //     if (snapshot.hasError) {
+    //       print(snapshot.error);
+    //       return TextError(
+    //         msg: "Não foi possível buscar os Favoritos",
+    //       );
+    //     }
+
+    //     if (!snapshot.hasData) {
+    //       return Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     }
+
+    //     List<Carro> carros = snapshot.data;
+
+    //   },
+    // );
   }
 
   @override
   void dispose() {
     super.dispose();
-
-    _bloc.dispose();
   }
 
   Future<void> _onRefresh() {
-    return _bloc.fetch();
+    return Provider.of<FavoritosModel>(context, listen: false).getCarros();
   }
 }

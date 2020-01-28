@@ -1,6 +1,20 @@
 import 'dart:convert';
 
+import 'package:carros_custom/utils/event_bus.dart';
 import 'package:carros_custom/utils/sql/entity.dart';
+
+class CarroEvent extends Event {
+  String acao;
+  String tipo;
+
+  CarroEvent(this.acao, this.tipo);
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "CarroEvent:{acao: $acao, tipo: $tipo}";
+  }
+}
 
 class Carro extends Entity {
   int id;

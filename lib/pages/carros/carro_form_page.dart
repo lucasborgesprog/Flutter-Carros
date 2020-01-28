@@ -5,6 +5,7 @@ import 'package:carros_custom/pages/api_response.dart';
 import 'package:carros_custom/pages/carros/carro.dart';
 import 'package:carros_custom/pages/carros/carros_api.dart';
 import 'package:carros_custom/utils/alert.dart';
+import 'package:carros_custom/utils/event_bus.dart';
 import 'package:carros_custom/utils/nav.dart';
 import 'package:carros_custom/widgets/app_button.dart';
 import 'package:carros_custom/widgets/app_text.dart';
@@ -241,6 +242,7 @@ class _CarroFormPageState extends State<CarroFormPage> {
 
     if (response.ok) {
       alert(context, "Carro salvo com sucesso!", callback: () {
+        EventBus.get(context).senEvent(CarroEvent("carro_salvo", c.tipo));
         pop(context);
       });
     } else {
