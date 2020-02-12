@@ -4,6 +4,7 @@ import 'package:carros_custom/pages/login/usuario.dart';
 import 'package:carros_custom/utils/nav.dart';
 import 'package:carros_custom/utils/sql/db_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -36,9 +37,13 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue[200],
-      child: Center(
-        child: CircularProgressIndicator(),
+      width: double.infinity,
+      height: double.infinity,
+      child: FlareActor(
+        "assets/splash-github.flr",
+        alignment: Alignment.center,
+        fit: BoxFit.contain,
+        animation: "git",
       ),
     );
   }

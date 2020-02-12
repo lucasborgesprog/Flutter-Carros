@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
 
       push(context, HomePage(), replace: true);
     } else {
-      alert(context, response.msg);
+      alert(context, "Login", response.msg);
     }
   }
 

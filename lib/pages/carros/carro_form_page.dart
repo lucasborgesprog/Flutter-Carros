@@ -241,12 +241,12 @@ class _CarroFormPageState extends State<CarroFormPage> {
     ApiResponse<bool> response = await CarrosApi.save(c, _file);
 
     if (response.ok) {
-      alert(context, "Carro salvo com sucesso!", callback: () {
+      alert(context, "Carros", "Carro salvo com sucesso!", callback: () {
         EventBus.get(context).senEvent(CarroEvent("carro_salvo", c.tipo));
         pop(context);
       });
     } else {
-      alert(context, response.msg);
+      alert(context, "Carros", response.msg);
     }
 
     setState(() {

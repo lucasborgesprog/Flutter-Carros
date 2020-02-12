@@ -11,7 +11,6 @@ class CarroEvent extends Event {
 
   @override
   String toString() {
-    // TODO: implement toString
     return "CarroEvent:{acao: $acao, tipo: $tipo}";
   }
 }
