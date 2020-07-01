@@ -6,9 +6,11 @@ import 'package:carros_custom/pages/carros/carros_api.dart';
 import 'package:carros_custom/pages/carros/loripsum_api.dart';
 import 'package:carros_custom/pages/favoritos/favorito_service.dart';
 import 'package:carros_custom/utils/alert.dart';
+import 'package:carros_custom/utils/event_bus.dart';
 import 'package:carros_custom/utils/nav.dart';
 import 'package:carros_custom/widgets/text.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CarroPage extends StatefulWidget {
   final Carro carro;
@@ -50,7 +52,7 @@ class _CarroPageState extends State<CarroPage> {
           ),
           IconButton(
             icon: Icon(Icons.videocam),
-            onPressed: _onClickVideo,
+            onPressed: () => _onClickVideo(context),
           ),
           PopupMenuButton<String>(
             onSelected: (String value) => _onClickPopupMenu(value),
@@ -171,7 +173,14 @@ class _CarroPageState extends State<CarroPage> {
 
   void _onClickMapa() {}
 
-  void _onClickVideo() {}
+  void _onClickVideo(BuildContext context) {
+    if (carro.urlVideo != null && carro.urlVideo.isNotEmpty) {
+      launch(carro.urlVideo);
+      //push(context, VideoPage(carro: carro));
+    } else {
+      alert(context, "Erro", "Este carro não possuí nenhum vídeo");
+    }
+  }
 
   _onClickPopupMenu(String value) {
     switch (value) {
@@ -198,15 +207,17 @@ class _CarroPageState extends State<CarroPage> {
     });
   }
 
-  void _deletar() async{
-    ApiResponse<bool> response  = await CarrosApi.delete(carro);
+  void _deletar() async {
+    ApiResponse<bool> response = await CarrosApi.delete(carro);
 
     if (response.ok) {
-      alert(context, "Carro deletado com sucesso!", callback: () {
+      alert(context, "Carros", "Carro deletado com sucesso!", callback: () {
+        EventBus.get(context)
+            .senEvent(CarroEvent("carro_deletado", carro.tipo));
         pop(context);
       });
     } else {
-      alert(context, response.msg);
+      alert(context, "Carros", response.msg);
     }
   }
 

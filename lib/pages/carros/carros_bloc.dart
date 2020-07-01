@@ -27,6 +27,8 @@ class CarrosBloc extends SimpleBloc<List<Carro>> {
     } catch (e) {
       print(e);
       addError(e);
+
+      return [];
     }
   }
 }

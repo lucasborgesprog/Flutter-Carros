@@ -41,15 +41,15 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  _loadUser() async {
-    Usuario user = await Usuario.get();
+  // _loadUser() async {
+  //   Usuario user = await Usuario.get();
 
-    if (user != null) {
-      setState(() {
-        push(context, HomePage(), replace: true);
-      });
-    }
-  }
+  //   if (user != null) {
+  //     setState(() {
+  //       push(context, HomePage(), replace: true);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -147,11 +147,11 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse response = await _bloc.login(login, senha);
 
     if (response.ok) {
-      Usuario user = response.result;
+      //Usuario user = response.result;
 
       push(context, HomePage(), replace: true);
     } else {
-      alert(context, response.msg);
+      alert(context, "Login", response.msg);
     }
   }
 

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:carros_custom/pages/api_response.dart';
 import 'package:carros_custom/pages/carros/upload_api.dart';
-import 'package:carros_custom/pages/login/usuario.dart';
 import 'package:carros_custom/utils/http_helper.dart' as http;
 
 import 'package:carros_custom/pages/carros/carro.dart';
