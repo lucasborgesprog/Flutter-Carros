@@ -14,6 +14,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
+    super.initState();
     // Inicializar o banco de dados
     Future futureA = DatabaseHelper.getInstance().db;
 

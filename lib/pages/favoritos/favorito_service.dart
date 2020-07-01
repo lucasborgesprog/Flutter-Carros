@@ -2,7 +2,6 @@ import 'package:carros_custom/pages/carros/carro.dart';
 import 'package:carros_custom/pages/carros/carro_dao.dart';
 import 'package:carros_custom/pages/favoritos/favorito.dart';
 import 'package:carros_custom/pages/favoritos/favorito_dao.dart';
-import 'package:carros_custom/pages/favoritos/favoritos_bloc.dart';
 import 'package:carros_custom/pages/favoritos/favoritos_model.dart';
 import 'package:provider/provider.dart';
 

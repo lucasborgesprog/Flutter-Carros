@@ -9,7 +9,7 @@ class EventBus {
 
   Stream<Event> get stream => _streamController.stream;
 
-  senEvent(Event event) {
+  sendEvent(Event event) {
     _streamController.add(event);
   }
 
